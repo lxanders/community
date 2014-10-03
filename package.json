@@ -16,9 +16,11 @@
         "http-server": "0.7.1"
     },
     "scripts": {
-        "clean": "rm -rf node_modules && rm -rf app/bower_components",
+        "clean": "npm run clean-node && npm run clean-bower",
+        "clean-bower": "rm -rf client/app/bower_components",
+        "clean-node": "rm -rf node_modules",
         "postinstall": "bower install",
-        "http": "http-server -a localhost -p 8000 -c-1"
+        "http": "http-server client/app -a localhost -p 8000 -c-1"
     },
     "engines": {
         "node": "0.10.32"
