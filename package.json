@@ -1,0 +1,20 @@
+{
+    "name": "community",
+    "description": "Social platform web application.",
+    "version": "0.0.0",
+    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/lxanders/community.git"
+    },
+    "dependencies": {
+    },
+    "devDependencies": {
+    },
+    "scripts": {
+
+    },
+    "engines": {
+        "node": "0.10.32"
+    }
+}
