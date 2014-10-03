@@ -28,6 +28,7 @@
         "compile-css": "lessc client/styles/styles.less > client/build/css/styles.css",
         "install-client": "bower install",
         "prepare-directories": "npm run clean-build && mkdir client/build && mkdir client/build/css",
+        "start": "node server",
         "http": "http-server client/app -a localhost -p 8000 -c-1"
     },
     "engines": {
