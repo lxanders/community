@@ -1,0 +1,10 @@
+{
+    "name": "community",
+    "description": "Social platform web application.",
+    "version": "0.0.0",
+    "homepage": "https://github.com/lxanders/community",
+    "license": "MIT",
+    "private": true,
+    "dependencies": {
+    }
+}
