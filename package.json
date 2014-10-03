@@ -16,6 +16,7 @@
         "http-server": "0.7.1"
     },
     "scripts": {
+        "clean": "rm -rf node_modules && rm -rf app/bower_components",
         "start-http": "http-server -a localhost -p 8000 -c-1"
     },
     "engines": {
