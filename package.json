@@ -4,6 +4,7 @@
     "version": "0.0.0",
     "private": true,
     "license": "MIT",
+    "main": "server/index.js",
     "repository": {
         "type": "git",
         "url": "https://github.com/lxanders/community.git"
@@ -25,8 +26,8 @@
         "clean-node": "rm -rf node_modules",
         "copy-html": "cp -r client/templates/* client/build/",
         "compile-css": "lessc client/styles/styles.less > client/build/css/styles.css",
+        "install-client": "bower install",
         "prepare-directories": "npm run clean-build && mkdir client/build && mkdir client/build/css",
-        "postinstall": "bower install",
         "http": "http-server client/app -a localhost -p 8000 -c-1"
     },
     "engines": {
