@@ -18,13 +18,14 @@
         "less": "1.7.5"
     },
     "scripts": {
-        "build": "npm run copy-html && npm run css",
+        "build": "npm run prepare-directories && npm run copy-html && npm run compile-css",
         "clean": "npm run clean-node && npm run clean-bower && npm run clean-build",
         "clean-bower": "rm -rf client/bower_components",
         "clean-build": "rm -rf client/build",
         "clean-node": "rm -rf node_modules",
-        "copy-html": "cp -r client/templates client/build",
-        "css": "lessc client/src/less/styles.less > client/build/css/styles.css",
+        "copy-html": "cp -r client/templates/* client/build/",
+        "compile-css": "lessc client/styles/styles.less > client/build/css/styles.css",
+        "prepare-directories": "npm run clean-build && mkdir client/build && mkdir client/build/css",
         "postinstall": "bower install",
         "http": "http-server client/app -a localhost -p 8000 -c-1"
     },
