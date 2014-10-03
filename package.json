@@ -10,7 +10,8 @@
         "url": "https://github.com/lxanders/community.git"
     },
     "dependencies": {
-        "express": "4.9.5"
+        "express": "4.9.5",
+        "morgan": "1.3.2"
     },
     "devDependencies": {
         "bower": "1.3.11",
