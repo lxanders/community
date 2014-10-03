@@ -1,3 +1,4 @@
 .idea/**
-client/app/bower_components/**
+client/bower_components/**
+client/build/**
 node_modules/**
