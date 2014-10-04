@@ -4,14 +4,15 @@ var path = require('path'),
     express = require('express'),
     app = express(),
     morgan = require('morgan'),
-    environment = process.env.NODE_ENV,
+    environment = process.env.NODE_ENV || 'development',
     getConfig = require('./config/config').getConfig,
-    relativeConfigPath = './',
+    configPath = path.join(__dirname, 'config'),
     config;
 
 app.use(morgan('combined'));
 app.use(express.static(path.join(__dirname, '../client/build')));
 
-config = getConfig(environment, relativeConfigPath, require);
+config = getConfig(environment, configPath, require);
+
 
 module.exports = app;
