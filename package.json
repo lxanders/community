@@ -33,7 +33,10 @@
         "compile-css": "lessc client/styles/styles.less > client/build/css/styles.css",
         "install-client": "bower install",
         "prepare-directories": "npm run clean-build && mkdir client/build && mkdir client/build/css",
-        "start": "node server"
+        "start": "node server",
+        "test": "npm run test-unit && npm run test-functional",
+        "test-functional": "mocha server/test/functional --recursive",
+        "test-unit": "mocha server/test/unit --recursive"
     },
     "engines": {
         "node": "0.10.32"
