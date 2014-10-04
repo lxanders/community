@@ -35,8 +35,8 @@
         "prepare-directories": "npm run clean-build && mkdir client/build && mkdir client/build/css",
         "start": "node server",
         "test": "npm run test-unit && npm run test-functional",
-        "test-functional": "mocha server/test/functional --recursive",
-        "test-unit": "mocha server/test/unit --recursive"
+        "test-functional": "NODE_ENV=test mocha server/test/functional --recursive",
+        "test-unit": "NODE_ENV=test mocha server/test/unit --recursive"
     },
     "engines": {
         "node": "0.10.32"
