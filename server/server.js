@@ -7,6 +7,7 @@ var path = require('path'),
     environment = process.env.NODE_ENV,
     getConfig = require('./config/config').getConfig,
     configPath = path.join(__dirname, 'config'),
+    mongo = require('./db/mongo'),
     config;
 
 app.use(morgan('combined'));
@@ -20,5 +21,11 @@ if (!environment) {
 
 config = getConfig(environment, configPath, require);
 
+mongo.connect(config.db)
+    .catch(function (error) {
+        if (error) {
+            throw new Error('Error connecting to the database: ' + error.message);
+        }
+    });
 
 module.exports = app;
