@@ -23,6 +23,7 @@
         "clean": "npm run clean-node && npm run clean-bower && npm run clean-build",
         "clean-bower": "rm -rf client/bower_components",
         "clean-build": "rm -rf client/build",
+        "clean-client": "npm run clean-bower && npm run clean-build",
         "clean-node": "rm -rf node_modules",
         "copy-html": "cp -r client/templates/* client/build/",
         "compile-css": "lessc client/styles/styles.less > client/build/css/styles.css",
