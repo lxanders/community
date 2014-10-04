@@ -14,7 +14,8 @@ describe('config', function () {
             var testCases = [
                 { environment: 'development' },
                 { environment: 'integration' },
-                { environment: 'production' }
+                { environment: 'production' },
+                { environment: 'test' }
             ];
 
             testCases.forEach(function (testCase) {
