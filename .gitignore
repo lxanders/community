@@ -1,4 +1,5 @@
 .idea/**
-client/app/bower_components/**
+client/bower_components/**
+client/build/**
 community.iml
 node_modules/**

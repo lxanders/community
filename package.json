@@ -4,25 +4,31 @@
     "version": "0.0.0",
     "private": true,
     "license": "MIT",
+    "main": "server/index.js",
     "repository": {
         "type": "git",
         "url": "https://github.com/lxanders/community.git"
     },
     "dependencies": {
+        "express": "4.9.5",
+        "morgan": "1.3.2"
     },
     "devDependencies": {
         "bower": "1.3.11",
         "eslint": "0.8.2",
-        "http-server": "0.7.1",
         "less": "1.7.5"
     },
     "scripts": {
-        "clean": "npm run clean-node && npm run clean-bower",
-        "clean-bower": "rm -rf client/app/bower_components",
+        "build": "npm run prepare-directories && npm run copy-html && npm run compile-css",
+        "clean": "npm run clean-node && npm run clean-bower && npm run clean-build",
+        "clean-bower": "rm -rf client/bower_components",
+        "clean-build": "rm -rf client/build",
         "clean-node": "rm -rf node_modules",
-        "css": "lessc client/src/less/styles.less > client/app/css/styles.css",
-        "postinstall": "bower install",
-        "http": "http-server client/app -a localhost -p 8000 -c-1"
+        "copy-html": "cp -r client/templates/* client/build/",
+        "compile-css": "lessc client/styles/styles.less > client/build/css/styles.css",
+        "install-client": "bower install",
+        "prepare-directories": "npm run clean-build && mkdir client/build && mkdir client/build/css",
+        "start": "node server"
     },
     "engines": {
         "node": "0.10.32"
