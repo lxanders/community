@@ -43,11 +43,11 @@ function formatConnectionString(dbConfiguration) {
 function connect(config) {
     var connectionString;
 
-    checkDBConfiguration(config.db);
-
     if (db) {
         return Promise.resolve(db);
     }
+
+    checkDBConfiguration(config.db);
 
     connectionString = formatConnectionString(config.db);
 
