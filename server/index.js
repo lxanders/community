@@ -19,7 +19,7 @@ if(!config.server || !config.server.port) {
     throw new Error('Server configuration missing');
 }
 
-mongo.connect()
+mongo.connect(config)
     .then(function () {
         app.listen(config.server.port);
         console.log('Server started on port ' + config.server.port);
