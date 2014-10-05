@@ -2,5 +2,8 @@
     "db": {
         "host": "127.0.0.1",
         "name": "community-development"
+    },
+    "server": {
+        "port": 3000
     }
 }
