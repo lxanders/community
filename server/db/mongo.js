@@ -2,32 +2,56 @@
 
 var Promise = require('bluebird'),
     monk = require('monk'),
-    environment = process.env.NODE_ENV,
-    getConfig = require('../config/config').getConfig,
-    configPath = '../config',
-    config,
     db;
+
+function dbConfigurationHasMissingParts(dbConfiguration) {
+    return !dbConfiguration || !dbConfiguration.host || !dbConfiguration.name;
+}
+
+function configurationContainsStringsOnly(dbConfiguration) {
+    return typeof dbConfiguration.host === 'string' && typeof dbConfiguration.name === 'string';
+}
+
+function checkDBConfiguration(dbConfiguration) {
+    var hostContainsWhiteSpaces,
+        nameContainsWhiteSpaces,
+        dbConfigurationJSONString = JSON.stringify(dbConfiguration),
+        invalidConfigurationMessage = 'Invalid Database configuration: ';
+
+    if (dbConfigurationHasMissingParts(dbConfiguration)) {
+        throw new Error('Invalid Database configuration: Missing or empty arguments: ' + dbConfigurationJSONString);
+    }
+
+    if (!configurationContainsStringsOnly(dbConfiguration)) {
+        throw new Error(invalidConfigurationMessage + 'Host and name have to be strings: ' + dbConfigurationJSONString);
+    }
+
+    hostContainsWhiteSpaces = dbConfiguration.host.split(' ').length > 1;
+    nameContainsWhiteSpaces = dbConfiguration.name.split(' ').length > 1;
+
+    if (hostContainsWhiteSpaces || nameContainsWhiteSpaces) {
+        throw new Error(invalidConfigurationMessage + 'No whitespaces allowed: ' + dbConfigurationJSONString);
+    }
+
+    return dbConfiguration && dbConfiguration.host && dbConfiguration.name;
+}
 
 function formatConnectionString(dbConfiguration) {
     return dbConfiguration.host + '/' + dbConfiguration.name;
 }
 
-function checkDBConfiguration(dbConfiguration) {
-    return dbConfiguration && dbConfiguration.host && dbConfiguration.name;
-}
+function connect(config) {
+    var connectionString;
 
-function connect() {
-    config = getConfig(environment, configPath, require);
-
-    if (!checkDBConfiguration(config.db)) {
-        throw new Error('Database configuration incomplete / missing: ' + JSON.stringify(config.db));
-    }
+    checkDBConfiguration(config.db);
 
     if (db) {
         return Promise.resolve(db);
     }
 
-    return Promise.resolve(monk(formatConnectionString(config.db)))
+    connectionString = formatConnectionString(config.db);
+
+    return Promise.resolve(monk(connectionString))
         .then(function (database) {
             db = database;
 
