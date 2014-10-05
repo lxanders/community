@@ -2,6 +2,10 @@
 
 var Promise = require('bluebird'),
     monk = require('monk'),
+    environment = process.env.NODE_ENV,
+    getConfig = require('../config/config').getConfig,
+    configPath = '../config',
+    config,
     db;
 
 function formatConnectionString(dbConfiguration) {
@@ -12,18 +16,19 @@ function checkDBConfiguration(dbConfiguration) {
     return dbConfiguration && dbConfiguration.host && dbConfiguration.name;
 }
 
-function connect(dbConfiguration) {
-    if (!checkDBConfiguration(dbConfiguration)) {
-        throw new Error('Database configuration incomplete / missing: ' + JSON.stringify(dbConfiguration));
+function connect() {
+    config = getConfig(environment, configPath, require);
+
+    if (!checkDBConfiguration(config.db)) {
+        throw new Error('Database configuration incomplete / missing: ' + JSON.stringify(config.db));
     }
 
-    return Promise.resolve(monk(formatConnectionString(dbConfiguration)))
+    return Promise.resolve(monk(formatConnectionString(config.db)))
         .then(function (database) {
             db = database;
         });
 }
 
 module.exports = {
-    connect: connect,
-    db: db
+    connect: connect
 };
