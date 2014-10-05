@@ -23,9 +23,15 @@ function connect() {
         throw new Error('Database configuration incomplete / missing: ' + JSON.stringify(config.db));
     }
 
+    if (db) {
+        return Promise.resolve(db);
+    }
+
     return Promise.resolve(monk(formatConnectionString(config.db)))
         .then(function (database) {
             db = database;
+
+            return db;
         });
 }
 
