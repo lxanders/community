@@ -1,7 +1,5 @@
 'use strict';
 
-var path = require('path');
-
 module.exports = {
 
     formatRelativeConfigFilePath: function formatRelativeConfigFilePath(environment, configDirectory) {
@@ -12,7 +10,7 @@ module.exports = {
             throw new Error('Invalid environment name or config directory: Only strings are allowed');
         }
 
-        return path.join(configDirectory, environment + '.json');
+        return configDirectory + '/' + environment + '.json';
     },
 
     getConfig: function getConfig(environment, configDirectory, requireFunction) {

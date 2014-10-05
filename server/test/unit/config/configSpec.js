@@ -10,7 +10,7 @@ chai.use(sinonChai);
 
 describe('config', function () {
 
-    var configDirectory = '../../../config/',
+    var configDirectory = '../../../config',
         getConfig = config.getConfig;
 
     describe('getConfig', function () {
@@ -44,7 +44,7 @@ describe('config', function () {
                 expect(config.formatRelativeConfigFilePath).to.have.been.calledWith(environment, configDirectory);
 
                 expect(requireFunctionStub).to.have.been.calledOnce;
-                expect(requireFunctionStub).to.have.been.calledWith(configDirectory + environment + '.json');
+                expect(requireFunctionStub).to.have.been.calledWith(configDirectory + '/' + environment + '.json');
             });
 
         });
@@ -110,7 +110,7 @@ describe('config', function () {
 
             it('should format the relative config file path from a specified environment', function () {
                 var environment = 'any',
-                    expectedPath = configDirectory + environment + '.json';
+                    expectedPath = configDirectory + '/' + environment + '.json';
 
                 expect(config.formatRelativeConfigFilePath(environment, configDirectory)).to.equal(expectedPath);
             });

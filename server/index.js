@@ -5,7 +5,7 @@ var path = require('path'),
     port = 3000,
     environment = process.env.NODE_ENV,
     getConfig = require('./config/config').getConfig,
-    configPath = path.join(__dirname, 'config'),
+    configPath = './config',
     mongo = require('./db/mongo'),
     config;
 
