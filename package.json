@@ -22,7 +22,8 @@
         "less": "1.7.5",
         "mocha": "1.21.4",
         "sinon": "1.10.3",
-        "sinon-chai": "2.5.0"
+        "sinon-chai": "2.5.0",
+        "supertest": "0.14.0"
     },
     "scripts": {
         "build": "npm run prepare-directories && npm run copy-html && npm run compile-css",
