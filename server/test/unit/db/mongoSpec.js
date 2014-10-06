@@ -2,9 +2,13 @@
 
 var chai = require('chai'),
     expect = chai.expect,
+    sinon = require('sinon'),
+    sinonChai = require('sinon-chai'),
     proxyquire = require('proxyquire'),
     config = require('../../../config/config'),
     mongo = require('../../../db/mongo');
+
+chai.use(sinonChai);
 
 describe('mongo', function () {
 
@@ -120,6 +124,43 @@ describe('mongo', function () {
                     expect(connect).to.throw(expectedErrorMessage);
                 });
 
+            });
+
+        });
+
+    });
+
+    describe('insert', function () {
+
+        describe('valid arguments', function () {
+
+            var collection = { insert: sinon.stub() },
+                document = { some: 'content' };
+
+            it('should call insert on the collection with the correct document', function () {
+                return mongo.insert(collection, document)
+                    .then(function () {
+                        expect(collection.insert).to.have.been.calledOnce;
+                        expect(collection.insert).to.have.been.calledWith(document);
+                    });
+            });
+        });
+
+        describe('invalid arguments', function () {
+
+            var testCases = [
+                    { collection: undefined, document: {} },
+                    { collection: {}, document: undefined }
+                ],
+                expectedErrorMessage = 'Invalid arguments: Collection or document missing';
+
+            testCases.forEach(function (testCase) {
+                it('should throw an error if one or both arguments are missing', function () {
+                    var collection = testCase.collection,
+                        document = testCase.document;
+
+                    expect(mongo.insert.bind(null, collection, document)).to.throw(expectedErrorMessage);
+                });
             });
 
         });

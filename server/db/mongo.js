@@ -59,6 +59,17 @@ function connect(config) {
         });
 }
 
+function insert(collection, document) {
+    var errorMessage = 'Invalid arguments: Collection or document missing';
+
+    if (!collection || !document) {
+        throw new Error(errorMessage);
+    }
+
+    return Promise.resolve(collection.insert(document));
+}
+
 module.exports = {
-    connect: connect
+    connect: connect,
+    insert: insert
 };

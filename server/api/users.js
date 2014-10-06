@@ -1,17 +1,13 @@
 'use strict';
 
-var Promise = require('bluebird'),
-    mongo = require('../db/mongo');
+var mongo = require('../db/mongo');
 
 function getUsersCollection(database) {
     return database.get('users');
 }
 
 function insertUser(user, usersCollection) {
-    return Promise.resolve(usersCollection.insert(user))
-        .then(function () {
-            return user;
-        });
+    return mongo.insert(usersCollection, user);
 }
 
 function registerUser(req, res) {
