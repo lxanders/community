@@ -12,10 +12,15 @@ function configurationContainsStringsOnly(dbConfiguration) {
     return typeof dbConfiguration.host === 'string' && typeof dbConfiguration.name === 'string';
 }
 
+function configurationContainsWhitespaces(dbConfiguration) {
+    var hostContainsWhiteSpaces = dbConfiguration.host.split(' ').length > 1,
+        nameContainsWhiteSpaces = dbConfiguration.name.split(' ').length > 1;
+
+    return hostContainsWhiteSpaces || nameContainsWhiteSpaces;
+}
+
 function checkDBConfiguration(dbConfiguration) {
-    var hostContainsWhiteSpaces,
-        nameContainsWhiteSpaces,
-        dbConfigurationJSONString = JSON.stringify(dbConfiguration),
+    var dbConfigurationJSONString = JSON.stringify(dbConfiguration),
         invalidConfigurationMessage = 'Invalid Database configuration: ';
 
     if (dbConfigurationHasMissingParts(dbConfiguration)) {
@@ -26,14 +31,11 @@ function checkDBConfiguration(dbConfiguration) {
         throw new Error(invalidConfigurationMessage + 'Host and name have to be strings: ' + dbConfigurationJSONString);
     }
 
-    hostContainsWhiteSpaces = dbConfiguration.host.split(' ').length > 1;
-    nameContainsWhiteSpaces = dbConfiguration.name.split(' ').length > 1;
-
-    if (hostContainsWhiteSpaces || nameContainsWhiteSpaces) {
+    if (configurationContainsWhitespaces(dbConfiguration)) {
         throw new Error(invalidConfigurationMessage + 'No whitespaces allowed: ' + dbConfigurationJSONString);
     }
 
-    return dbConfiguration && dbConfiguration.host && dbConfiguration.name;
+    return true;
 }
 
 function formatConnectionString(dbConfiguration) {
