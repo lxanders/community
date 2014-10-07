@@ -120,7 +120,7 @@ describe('config', function () {
         describe('invalid input', function () {
 
             var testCases = [
-                { input: undefined },
+                {},
                 { input: null },
                 { input: 42 },
                 { input: [] },

@@ -76,7 +76,6 @@ describe('mongo', function () {
                 {
                     config: {
                         db: {
-                            host: undefined,
                             name: 'anyname'
                         }
                     },
@@ -85,8 +84,7 @@ describe('mongo', function () {
                 {
                     config: {
                         db: {
-                            host: 'anyhost',
-                            name: undefined
+                            host: 'anyhost'
                         }
                     },
                     errorMessageStaticPart: 'Invalid Database configuration: Missing or empty arguments: '
@@ -149,8 +147,8 @@ describe('mongo', function () {
         describe('invalid arguments', function () {
 
             var testCases = [
-                    { collection: undefined, document: {} },
-                    { collection: {}, document: undefined }
+                    { document: {} },
+                    { collection: {} }
                 ],
                 expectedErrorMessage = 'Invalid arguments: Collection or document missing';
 
