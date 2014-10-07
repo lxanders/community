@@ -21,7 +21,7 @@ describe('Users API', function () {
                 usersCollection = db.get('users');
 
                 return Promise.resolve(usersCollection.remove({}));
-            })
+            });
     });
 
     describe('users', function () {
@@ -49,7 +49,7 @@ describe('Users API', function () {
                             .then(function (result) {
                                 expect(result.headers).to.have.property('location');
                                 expect(result.headers.location).to.equal('/users/' + testuser.username);
-                            })
+                            });
                     });
             });
 
