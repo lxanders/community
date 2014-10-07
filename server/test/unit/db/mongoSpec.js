@@ -5,7 +5,6 @@ var chai = require('chai'),
     sinon = require('sinon'),
     sinonChai = require('sinon-chai'),
     proxyquire = require('proxyquire'),
-    config = require('../../../config/config'),
     mongo = require('../../../db/mongo');
 
 chai.use(sinonChai);
