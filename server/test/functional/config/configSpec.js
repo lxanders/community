@@ -30,7 +30,8 @@ describe('config', function () {
 
             it('should throw an error if the specified configuration does not exist', function () {
                 var environment = 'any not existing',
-                    expectedErrorMessage = 'Config file for system environment not existing:' + environment,
+                    expectedErrorMessageStaticPart = 'Config file for system environment not existing: ',
+                    expectedErrorMessage = expectedErrorMessageStaticPart + environment + ' in ' + configDirectory,
                     getConfig = config.getConfig;
 
                 expect(getConfig.bind(null, environment, configDirectory, require)).to.throw(expectedErrorMessage);
