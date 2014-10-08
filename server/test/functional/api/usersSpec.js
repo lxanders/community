@@ -69,6 +69,14 @@ describe('Users API', function () {
                                     .then(function (result) {
                                         expect(result.headers).to.have.property('location');
                                         expect(result.headers.location).to.equal('/users/' + testUser.username);
+
+                                        return Promise.resolve(usersCollection.findOne({ username: testUser.username }))
+                                            .then(function (foundUser) {
+                                                expect(foundUser).to.have.property('username');
+                                                expect(foundUser).to.have.property('password');
+                                                expect(foundUser.username).to.equal(testUser.username);
+                                                expect(foundUser.password).to.equal(testUser.password);
+                                            });
                                     });
                             });
                     });
