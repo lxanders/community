@@ -35,23 +35,23 @@ describe('Users API', function () {
             describe('valid input', function () {
 
                 var testUsers = [
-                    {
-                        username: 'anyUsername',
-                        password: 'anyPassword'
-                    },
-                    {
-                        username: 'any_Usern4me',
-                        password: 'anyPassword'
-                    },
-                    {
-                        username: 'anyUsername',
-                        password: 'any   Password'
-                    },
-                    {
-                        username: 'anyUsername',
-                        password: '\\a/n!y  []{}<> P$as_swo-rd%'
-                    }
-                ],
+                        {
+                            username: 'anyUsername',
+                            password: 'anyPassword'
+                        },
+                        {
+                            username: 'any_Usern4me',
+                            password: 'anyPassword'
+                        },
+                        {
+                            username: 'anyUsername',
+                            password: 'any   Password'
+                        },
+                        {
+                            username: 'anyUsername',
+                            password: '\\a/n!y  []{}<> P$as_swo-rd%'
+                        }
+                    ],
                     usernameAndPassword;
 
                 testUsers.forEach(function (testUser) {
