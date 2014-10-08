@@ -187,6 +187,10 @@ describe('Users API', function () {
                     ],
                     usernameAndPassword;
 
+                afterEach(function () {
+                    return Promise.resolve(usersCollection.remove({}));
+                });
+
                 testCases.forEach(function (testCase) {
                     usernameAndPassword = 'username=' + testCase.user.username + ', password=' + testCase.user.password;
 
@@ -202,8 +206,6 @@ describe('Users API', function () {
                     });
                 });
 
-                afterEach(function () {
-                    return Promise.resolve(usersCollection.remove({}));
                 });
 
             });
