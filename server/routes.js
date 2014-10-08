@@ -1,9 +1,10 @@
 'use strict';
 
-var users = require('./api/users');
+var users = require('./api/users'),
+    usersBasePath = '/users';
 
-module.exports = function (app) {
+module.exports = function (router) {
 
-    app.post('/users', users.registerUser);
+    router.post(usersBasePath, users.registerUser);
 
 };
