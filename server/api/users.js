@@ -116,10 +116,12 @@ function registerUser(req, res) {
         })
         .catch(function (error) {
             if (error.name === 'VALIDATION_ERROR') {
-                res.status(400)
+                res
+                    .status(400)
                     .json(error.errors);
             } else {
-                res.status(500)
+                res
+                    .status(500)
                     .end();
             }
 
