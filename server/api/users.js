@@ -73,7 +73,7 @@ function validateUser(user) {
     if (validationErrors.length > 0) {
         error = new Error('Validation error(s).');
         error.name = 'VALIDATION_ERROR';
-        error.validationErrors = { errors: validationErrors };
+        error.errors = { errors: validationErrors };
 
         throw error;
     }
@@ -89,7 +89,7 @@ function checkUsernameAvailability(username, usersCollection) {
             if (count > 0) {
                 error = new Error('Validation error(s).');
                 error.name = 'VALIDATION_ERROR';
-                error.validationErrors = { errors: [ { message: 'Username is already taken.' } ] };
+                error.errors = { errors: [ { message: 'Username is already taken.' } ] };
 
                 throw error;
             }
@@ -117,7 +117,7 @@ function registerUser(req, res) {
         .catch(function (error) {
             if (error.name === 'VALIDATION_ERROR') {
                 res.status(400)
-                    .json(error.validationErrors);
+                    .json(error.errors);
             } else {
                 res.status(500)
                     .end();
