@@ -89,7 +89,7 @@ function checkUsernameAvailability(username, usersCollection) {
             if (count > 0) {
                 error = new Error('Validation error(s).');
                 error.name = 'VALIDATION_ERROR';
-                error.validationErrors = [ { message: 'Username is already taken.' } ];
+                error.validationErrors = { errors: [ { message: 'Username is already taken.' } ] };
 
                 throw error;
             }
