@@ -2,7 +2,7 @@
 
 var Promise = require('bluebird'),
     expect = require('chai').expect,
-    request = require('supertest-as-promised'),
+    supertestAsPromised = require('supertest-as-promised'),
     server = require('../../../server'),
     mongo = require('../../../db/mongo');
 
@@ -12,9 +12,12 @@ describe('Users API', function () {
         environment = process.env.NODE_ENV,
         getConfig = require('../../../config/config').getConfig,
         configPath = '../../../config',
-        config = getConfig(environment, configPath, require);
+        config = getConfig(environment, configPath, require),
+        request;
 
     before(function () {
+        request = supertestAsPromised(server);
+
         return mongo.connect(config)
             .then(function (database) {
                 db = database;
@@ -62,7 +65,7 @@ describe('Users API', function () {
                             .then(function (user) {
                                 expect(user).to.not.exist;
 
-                                return request(server)
+                                return request
                                     .post('/users')
                                     .send(testUser)
                                     .expect(201)
@@ -203,7 +206,7 @@ describe('Users API', function () {
                     usernameAndPassword = 'username=' + testCase.user.username + ', password=' + testCase.user.password;
 
                     it('should throw an error for ' + usernameAndPassword, function () {
-                        return request(server)
+                        return request
                             .post('/users')
                             .send(testCase.user)
                             .expect(400)
