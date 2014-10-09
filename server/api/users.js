@@ -82,7 +82,7 @@ function validateUser(user) {
 }
 
 function checkUsernameAvailability(username, usersCollection) {
-    return Promise.resolve(usersCollection.count({ name: username })
+    return Promise.resolve(usersCollection.count({ username: username })
         .then(function (count) {
             var error;
 
