@@ -217,6 +217,40 @@ describe('Users API', function () {
                     });
                 });
 
+                it('should throw an error if the username is already taken', function () {
+                    var testUser = {
+                            username: 'anyUsername',
+                            password: 'anyPassword'
+                        },
+                        expectedErrors = [
+                            { message: 'Username is already taken.' }
+                        ];
+
+                    return request
+                        .post('/users')
+                        .send(testUser)
+                        .expect(201)
+                        .then(function () {
+                            return Promise.resolve(usersCollection.findOne(null, { username: testUser.username }))
+                                .then(function (foundUser) {
+                                    expect(foundUser).to.exist;
+                                    expect(foundUser).to.have.property('username');
+                                    expect(foundUser).to.have.property('password');
+                                    expect(foundUser.username).to.equal(testUser.username);
+                                    expect(foundUser.password).to.equal(testUser.password);
+                                })
+                                .then(function () {
+                                    return request
+                                        .post('/users')
+                                        .send(testUser)
+                                        .expect(400)
+                                        .then(function (result) {
+                                            expect(result.body).to.have.property('errors');
+                                            expect(result.body.errors).to.deep.equal(expectedErrors);
+                                        })
+                                });
+                        });
+
                 });
 
             });
