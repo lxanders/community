@@ -206,13 +206,20 @@ describe('Users API', function () {
                     usernameAndPassword = 'username=' + testCase.user.username + ', password=' + testCase.user.password;
 
                     it('should throw an error for ' + usernameAndPassword, function () {
+                        var expectedErrorResponse = {
+                            error: {
+                                name: 'VALIDATION_ERROR',
+                                message: 'Validation error(s).',
+                                errors: testCase.expectedErrors
+                            }
+                        };
+
                         return request
                             .post('/users')
                             .send(testCase.user)
                             .expect(400)
                             .then(function (result) {
-                                expect(result.body).to.have.property('errors');
-                                expect(result.body.errors).to.deep.equal(testCase.expectedErrors);
+                                expect(result.body).to.deep.equal(expectedErrorResponse);
                             });
                     });
                 });
@@ -222,9 +229,13 @@ describe('Users API', function () {
                             username: 'anyUsername',
                             password: 'anyPassword'
                         },
-                        expectedErrors = [
-                            { message: 'Username is already taken.' }
-                        ];
+                        expectedErrorResponse = {
+                            error: {
+                                name: 'VALIDATION_ERROR',
+                                message: 'Validation error(s).',
+                                errors: [ { message: 'Username is already taken.' } ]
+                            }
+                        };
 
                     return request
                         .post('/users')
@@ -245,8 +256,7 @@ describe('Users API', function () {
                                         .send(testUser)
                                         .expect(400)
                                         .then(function (result) {
-                                            expect(result.body).to.have.property('errors');
-                                            expect(result.body.errors).to.deep.equal(expectedErrors);
+                                            expect(result.body).to.deep.equal(expectedErrorResponse);
                                         })
                                 });
                         });

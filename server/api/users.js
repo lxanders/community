@@ -2,6 +2,7 @@
 
 var Promise = require('bluebird'),
     mongo = require('../db/mongo'),
+    validationErrorMessage = 'Validation error(s).',
     userValidationRules = {
         username: {
             minimumLength: 4,
@@ -71,9 +72,9 @@ function validateUser(user) {
     }
 
     if (validationErrors.length > 0) {
-        error = new Error('Validation error(s).');
+        error = new Error(validationErrorMessage);
         error.name = 'VALIDATION_ERROR';
-        error.errors = { errors: validationErrors };
+        error.errors = validationErrors;
 
         throw error;
     }
@@ -87,9 +88,9 @@ function checkUsernameAvailability(username, usersCollection) {
             var error;
 
             if (count > 0) {
-                error = new Error('Validation error(s).');
+                error = new Error(validationErrorMessage);
                 error.name = 'VALIDATION_ERROR';
-                error.errors = { errors: [ { message: 'Username is already taken.' } ] };
+                error.errors = [ { message: 'Username is already taken.' } ];
 
                 throw error;
             }
@@ -100,7 +101,7 @@ function insertUser(user, usersCollection) {
     return mongo.insert(usersCollection, user);
 }
 
-function registerUser(req, res) {
+function registerUser(req, res, next) {
     var user = req.body;
 
     Promise.try(validateUser.bind(null, user))
@@ -114,18 +115,7 @@ function registerUser(req, res) {
                 .status(201)
                 .end();
         })
-        .catch(function (error) {
-            if (error.name === 'VALIDATION_ERROR') {
-                res
-                    .status(400)
-                    .json(error.errors);
-            } else {
-                res
-                    .status(500)
-                    .end();
-            }
-
-        });
+        .catch(next);
 }
 
 module.exports = {
