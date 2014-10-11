@@ -39,10 +39,11 @@
         "clean-node": "rm -rf node_modules",
         "copy-html": "cp -r client/templates/* client/build/",
         "compile-css": "lessc client/styles/styles.less > client/build/css/styles.css",
+        "eslint": "eslint server",
         "install-client": "bower install",
         "prepare-directories": "npm run clean-build && mkdir client/build && mkdir client/build/css",
         "start": "node server",
-        "test": "npm run test-unit && npm run test-functional",
+        "test": "npm run eslint && npm run test-unit && npm run test-functional",
         "test-functional": "NODE_ENV=test mocha server/test/functional --recursive",
         "test-unit": "NODE_ENV=test mocha server/test/unit --recursive"
     },
