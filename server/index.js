@@ -5,24 +5,25 @@ var app = require('./server'),
     getConfig = require('./config/config').getConfig,
     configPath = './config',
     mongo = require('./db/mongo'),
-    config;
+    config,
+    logger = require('./logger');
 
 if (!environment) {
     throw new Error('Node environment not set (NODE_ENV).');
 } else {
-    console.log('Running with environment:', environment);
+    logger.info('Running with environment:', environment);
 }
 
 config = getConfig(environment, configPath, require);
 
-if(!config.server || !config.server.port) {
+if (!config.server || !config.server.port) {
     throw new Error('Server configuration missing');
 }
 
 mongo.connect(config)
     .then(function () {
         app.listen(config.server.port);
-        console.log('Server started on port ' + config.server.port);
+        logger.info('Server started on port ' + config.server.port);
     })
     .catch(function (error) {
         if (error) {

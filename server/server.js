@@ -6,9 +6,10 @@ var path = require('path'),
     app = express(),
     router = express.Router(),
     morgan = require('morgan'),
+    logger = require('./logger'),
     errorHandler = require('./middleware/errorHandler');
 
-app.use(morgan('combined'));
+app.use(morgan('combined', { stream: logger.infoStream }));
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(bodyParser.json());
 app.use('/', router);
