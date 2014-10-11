@@ -19,8 +19,12 @@ function removeEndingNewLineCharacter(message) {
     if (message.length > 0) {
         lastCharacter = message[message.length-1];
 
-        if (lastCharacter === '\n') {
+        while(lastCharacter === '\n') {
             message = message.slice(0, -1);
+
+            if(message.length > 0) {
+                lastCharacter = message[message.length-1];
+            }
         }
     }
 
