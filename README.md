@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/lxanders/community.svg?branch=master)](https://travis-ci.org/lxanders/community)
+
 community
 =========
 
