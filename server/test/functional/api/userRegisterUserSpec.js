@@ -6,7 +6,7 @@ var Promise = require('bluebird'),
     server = require('../../../server'),
     mongo = require('../../../db/mongo');
 
-describe('POST - register user', function () {
+describe('POST /users/ - register user', function () {
 
     var db,
         usersCollection,
