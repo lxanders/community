@@ -257,7 +257,7 @@ describe('Users API', function () {
                                         .expect(400)
                                         .then(function (result) {
                                             expect(result.body).to.deep.equal(expectedErrorResponse);
-                                        })
+                                        });
                                 });
                         });
 
