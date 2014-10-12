@@ -1,11 +1,22 @@
 'use strict';
 
+function getStatusCodeForError(errorName) {
+    var defaultErrorHTTPStatusCode = 500,
+        statusCode;
+
+    if (errorName === 'VALIDATION_ERROR') {
+        statusCode = 400;
+    } else {
+        statusCode = defaultErrorHTTPStatusCode;
+    }
+
+    return statusCode;
+}
+
 /* eslint no-unused-vars:0 */
 // express requires exactly 4 parameters to determine if a middleware is an error middlewares
 module.exports = function errorHandler(error, req, res, next) {
-    var statusCode,
-        defaultErrorHTTPStatusCode = 500,
-        defaultErrorName = 'ERROR',
+    var defaultErrorName = 'ERROR',
         defaultErrorMessage = 'Unexpected error.',
         response = {
             error: {
@@ -15,13 +26,7 @@ module.exports = function errorHandler(error, req, res, next) {
             }
         };
 
-    if (response.error.name === 'VALIDATION_ERROR') {
-        statusCode = 400;
-    } else {
-        statusCode = defaultErrorHTTPStatusCode;
-    }
-
     res
-        .status(statusCode)
+        .status(getStatusCodeForError(response.error.name))
         .json(response);
 };

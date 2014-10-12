@@ -51,6 +51,22 @@ function formatPasswordValidationError() {
     return 'Invalid password. ' + validPasswordFormatMessage + '.';
 }
 
+function addUsernameErrors(username, validationErrors) {
+    if (!username) {
+        validationErrors.push({ message: 'Username is mandatory but was not specified.' });
+    } else if (!checkUsernameFormat(username)) {
+        validationErrors.push({ message: formatUsernameValidationError() });
+    }
+}
+
+function addPasswordErrors(password, validationErrors) {
+    if (!password) {
+        validationErrors.push({ message: 'Password is mandatory but was not specified.' });
+    } else if (!checkPasswordFormat(password)) {
+        validationErrors.push({ message: formatPasswordValidationError() });
+    }
+}
+
 function validateUser(user) {
     var validationErrors = [],
         error;
@@ -58,17 +74,8 @@ function validateUser(user) {
     if (!user) {
         validationErrors.push('No user data specified.');
     } else {
-        if (!user.username) {
-            validationErrors.push({ message: 'Username is mandatory but was not specified.' });
-        } else if (!checkUsernameFormat(user.username)) {
-            validationErrors.push({ message: formatUsernameValidationError() });
-        }
-
-        if (!user.password) {
-            validationErrors.push({ message: 'Password is mandatory but was not specified.' });
-        } else if (!checkPasswordFormat(user.password)) {
-            validationErrors.push({ message: formatPasswordValidationError() });
-        }
+        addUsernameErrors(user.username, validationErrors);
+        addPasswordErrors(user.password, validationErrors);
     }
 
     if (validationErrors.length > 0) {
@@ -90,7 +97,9 @@ function checkUsernameAvailability(username, usersCollection) {
             if (count > 0) {
                 error = new Error(validationErrorMessage);
                 error.name = 'VALIDATION_ERROR';
-                error.errors = [ { message: 'Username is already taken.' } ];
+                error.errors = [
+                    { message: 'Username is already taken.' }
+                ];
 
                 throw error;
             }
