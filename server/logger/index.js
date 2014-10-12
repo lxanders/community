@@ -17,13 +17,13 @@ function removeEndingNewLineCharacter(message) {
     var lastCharacter;
 
     if (message.length > 0) {
-        lastCharacter = message[message.length-1];
+        lastCharacter = message[message.length - 1];
 
         while(lastCharacter === '\n') {
             message = message.slice(0, -1);
 
             if(message.length > 0) {
-                lastCharacter = message[message.length-1];
+                lastCharacter = message[message.length - 1];
             }
         }
     }
