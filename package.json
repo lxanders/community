@@ -22,6 +22,7 @@
         "chai": "1.9.2",
         "eslint": "0.8.2",
         "eslint-plugin-mocha": "0.2.0",
+        "istanbul": "0.3.2",
         "less": "1.7.5",
         "mocha": "1.21.4",
         "nodemon": "1.2.1",
@@ -38,12 +39,13 @@
         "clean-node": "rm -rf node_modules",
         "copy-html": "cp -r client/templates/* client/build/",
         "compile-css": "lessc client/styles/styles.less > client/build/css/styles.css",
+        "coverage": "npm run test-unit --coverage && istanbul report html",
         "eslint": "eslint server",
         "prepare-directories": "npm run clean-client && mkdir client/build && mkdir client/build/css",
         "start": "nodemon -w server",
         "test": "npm run eslint && npm run test-unit && npm run test-functional",
         "test-functional": "NODE_ENV=test mocha server/test/functional --recursive",
-        "test-unit": "NODE_ENV=test mocha server/test/unit --recursive"
+        "test-unit": "NODE_ENV=test istanbul test _mocha -- -R spec --recursive server/test/unit/"
     },
     "engines": {
         "node": "0.10.32"

@@ -1,4 +1,5 @@
 .idea/**
 client/build/**
 community.iml
+coverage/**
 node_modules/**
