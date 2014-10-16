@@ -35,6 +35,20 @@ describe('logger', function () {
             expect(logger.info).to.have.been.calledWith(messageWithInnerLinebreaks);
         });
 
+        it('should return without errors if the message is empty', function () {
+            infoStream.write('');
+
+            expect(logger.info).to.have.been.calledOnce;
+            expect(logger.info).to.have.been.calledWith('');
+        });
+
+        it('should stop removing characters when none are left anymore', function () {
+            infoStream.write('\n');
+
+            expect(logger.info).to.have.been.calledOnce;
+            expect(logger.info).to.have.been.calledWith('');
+        });
+
     });
 
 });

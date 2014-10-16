@@ -34,6 +34,21 @@ describe('mongo', function () {
                 mongoWithMonkStub.connect(config);
             });
 
+            it('should return an already initialized db object regardless of the input parameters', function () {
+                var anyDb = { any: 'db' };
+
+                monkStub = sinon.stub().returns(anyDb);
+
+                mongoWithMonkStub = proxyquire('../../../db/mongo', { monk: monkStub });
+
+                return mongoWithMonkStub.connect(config)
+                    .then(mongoWithMonkStub.connect)
+                    .then(function (db) {
+                        expect(db).to.deep.equal(anyDb);
+                        expect(monkStub).to.have.been.calledOnce;
+                    });
+            });
+
         });
 
         describe('invalid configuration', function () {

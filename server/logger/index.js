@@ -24,6 +24,8 @@ function removeEndingNewLineCharacter(message) {
 
             if(message.length > 0) {
                 lastCharacter = message[message.length - 1];
+            } else {
+                break;
             }
         }
     }
