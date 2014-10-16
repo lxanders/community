@@ -71,7 +71,20 @@ function insert(collection, document) {
     return Promise.resolve(collection.insert(document));
 }
 
+function indexes(collection) {
+    var errorMessage = 'Database not (yet) connected';
+
+    if (!collection) {
+        throw new Error(errorMessage);
+    } else if (typeof collection.indexes !== 'function') {
+        throw new Error('Specified collection is not a valid database collection (indexes function is not defined)')
+    }
+
+    return Promise.resolve(collection.indexes());
+}
+
 module.exports = {
     connect: connect,
-    insert: insert
+    insert: insert,
+    indexes: indexes
 };

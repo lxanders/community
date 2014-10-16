@@ -179,4 +179,27 @@ describe('mongo', function () {
 
     });
 
+    describe('indexes', function () {
+
+        it('should return the currently configured indexes', function () {
+            var collection = { indexes: sinon.stub() };
+
+            mongo.indexes(collection);
+
+            expect(collection.indexes).to.have.been.calledOnce;
+        });
+
+        it('should throw an error if no collection was specified', function () {
+            expect(mongo.indexes).to.throw('Database not (yet) connected');
+        });
+
+        it('should throw an error if the provided collection is not a valid db collection', function () {
+            var expectedErrorMessage = 'Specified collection is not a valid database collection ' +
+                '(indexes function is not defined)';
+
+            expect(mongo.indexes.bind(null, {})).to.throw(expectedErrorMessage);
+        });
+
+    });
+
 });
