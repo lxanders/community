@@ -2,7 +2,8 @@
 
 var Promise = require('bluebird'),
     monk = require('monk'),
-    db;
+    db,
+    databaseNotConnectedErrorMessage = 'Database not (yet) connected';;
 
 function dbConfigurationHasMissingParts(dbConfiguration) {
     return !dbConfiguration || !dbConfiguration.host || !dbConfiguration.name;
@@ -72,10 +73,8 @@ function insert(collection, document) {
 }
 
 function indexes(collection) {
-    var errorMessage = 'Database not (yet) connected';
-
     if (!collection) {
-        throw new Error(errorMessage);
+        throw new Error(databaseNotConnectedErrorMessage);
     } else if (typeof collection.indexes !== 'function') {
         throw new Error('Specified collection is not a valid database collection (indexes function is not defined)')
     }
