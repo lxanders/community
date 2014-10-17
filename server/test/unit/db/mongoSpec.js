@@ -1,6 +1,7 @@
 'use strict';
 
 var chai = require('chai'),
+    chaiAsPromised = require('chai-as-promised'),
     expect = chai.expect,
     sinon = require('sinon'),
     sinonChai = require('sinon-chai'),
@@ -8,6 +9,7 @@ var chai = require('chai'),
     mongo = require('../../../db/mongo');
 
 chai.use(sinonChai);
+chai.use(chaiAsPromised);
 
 describe('mongo', function () {
 
@@ -198,6 +200,75 @@ describe('mongo', function () {
                 '(indexes function is not defined)';
 
             expect(mongo.indexes.bind(null, {})).to.throw(expectedErrorMessage);
+        });
+
+    });
+
+    describe('checkIndexes', function () {
+
+        var config = {
+                db: {
+                    host: 'anyhost',
+                    name: 'anyname'
+                }
+            },
+            monkStub,
+            mongoWithMonkStub;
+
+        it('should return without errors if the users username index did exist', function () {
+            var validIndexes = {
+                    '_id_': [
+                        [ '_id', 1 ]
+                    ],
+                    'username_1': [
+                        [ 'username', 1 ]
+                    ]
+                },
+                indexesStub = sinon.stub().returns(validIndexes),
+                getStub = sinon.stub().returns({
+                    indexes: indexesStub
+                });
+
+            monkStub = sinon.stub().returns({
+                get: getStub
+            });
+
+            mongoWithMonkStub = proxyquire('../../../db/mongo', { monk: monkStub });
+
+            return mongoWithMonkStub.connect(config)
+                .then(mongoWithMonkStub.checkIndexes)
+                .then(function () {
+                    expect(getStub).to.have.been.calledOnce;
+                    expect(getStub).to.have.been.calledWith('users');
+                    expect(indexesStub).to.have.been.calledOnce;
+                });
+
+        });
+
+        it('should return a rejected promise with an error if the users username index does not exist', function () {
+            var expectedErrorMessage = 'Username index missing in users collection',
+                invalidIndexes = {},
+                indexesStub = sinon.stub().returns(invalidIndexes),
+                getStub = sinon.stub().returns({
+                    indexes: indexesStub
+                });
+
+            monkStub = sinon.stub().returns({
+                get: getStub
+            });
+
+            mongoWithMonkStub = proxyquire('../../../db/mongo', { monk: monkStub });
+
+            return mongoWithMonkStub.connect(config)
+                .then(function () {
+                    return expect(mongoWithMonkStub.checkIndexes()).to.be.rejectedWith(expectedErrorMessage);
+                });
+
+        });
+
+        it('should throw an error if the database is not yet connected', function () {
+            expect(mongo.checkIndexes).to.throw('Database not (yet) connected');
+
         });
 
     });

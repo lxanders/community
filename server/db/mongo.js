@@ -1,9 +1,10 @@
 'use strict';
 
-var Promise = require('bluebird'),
+var _ = require('underscore'),
+    Promise = require('bluebird'),
     monk = require('monk'),
     db,
-    databaseNotConnectedErrorMessage = 'Database not (yet) connected';;
+    databaseNotConnectedErrorMessage = 'Database not (yet) connected';
 
 function dbConfigurationHasMissingParts(dbConfiguration) {
     return !dbConfiguration || !dbConfiguration.host || !dbConfiguration.name;
@@ -41,6 +42,15 @@ function checkDBConfiguration(dbConfiguration) {
 
 function formatConnectionString(dbConfiguration) {
     return dbConfiguration.host + '/' + dbConfiguration.name;
+}
+
+function hasValidUsernameIndex(indexes) {
+    var usernameIndexName = 'username_1',
+        usernameIndex = [
+            [ 'username', 1 ]
+        ];
+
+    return _.isEqual(indexes[usernameIndexName], usernameIndex);
 }
 
 function connect(config) {
@@ -82,8 +92,23 @@ function indexes(collection) {
     return Promise.resolve(collection.indexes());
 }
 
+function checkIndexes() {
+    if (!db) {
+        throw new Error(databaseNotConnectedErrorMessage);
+    }
+
+    return Promise.try(db.get.bind(null, 'users'))
+        .then(indexes)
+        .then(function (indexes) {
+            if (!hasValidUsernameIndex(indexes)) {
+                throw new Error('Username index missing in users collection');
+            }
+        });
+}
+
 module.exports = {
     connect: connect,
     insert: insert,
-    indexes: indexes
+    indexes: indexes,
+    checkIndexes: checkIndexes
 };
