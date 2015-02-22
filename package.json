@@ -26,7 +26,7 @@
         "istanbul": "0.3.2",
         "less": "1.7.5",
         "mocha": "1.21.4",
-        "nodemon": "1.2.1",
+        "node-dev": "2.6.1",
         "proxyquire": "1.0.1",
         "sinon": "1.10.3",
         "sinon-chai": "2.5.0",
@@ -44,7 +44,7 @@
         "coverage": "npm run test-unit --coverage && istanbul report html",
         "eslint": "eslint server",
         "prepare-directories": "npm run clean-client && mkdir client/build && mkdir client/build/css",
-        "start": "nodemon -w server",
+        "start": "node-dev server",
         "test": "npm run eslint && npm run test-unit && npm run test-functional",
         "test-functional": "NODE_ENV=test mocha server/test/functional --recursive",
         "test-unit": "NODE_ENV=test istanbul test _mocha -- -R spec --recursive server/test/unit/"
