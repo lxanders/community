@@ -1,11 +1,10 @@
 'use strict';
 
 var app = require('./server'),
+    config = require('config'),
+    logger = require('./logger'),
     environment = process.env.NODE_ENV,
-    getConfig = require('./config/config').getConfig,
-    configPath = './config',
-    config,
-    logger = require('./logger');
+    port;
 
 if (!environment) {
     throw new Error('Node environment not set (NODE_ENV).');
@@ -13,9 +12,9 @@ if (!environment) {
     logger.info('Running with environment:', environment);
 }
 
-config = getConfig(environment, configPath, require);
+port = config.get('server.port');
 
-if (!config.server || !config.server.port) {
+if (!port) {
     throw new Error('Server configuration missing');
 }
 
