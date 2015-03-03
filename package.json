@@ -46,7 +46,7 @@
         "coverage": "npm run test-unit --coverage && istanbul report html",
         "eslint": "eslint server",
         "prepare-directories": "npm run clean-client && mkdir client/build && mkdir client/build/css",
-        "start": "nodemon -w server",
+        "start": "NODE_ENV=development nodemon -w server",
         "test": "npm run eslint && npm run test-unit && npm run test-functional",
         "test-functional": "NODE_ENV=test mocha server/test/functional --recursive",
         "test-unit": "NODE_ENV=test istanbul test _mocha -- -R spec --recursive server/test/unit/"
