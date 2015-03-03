@@ -53,16 +53,16 @@ function hasValidUsernameIndex(indexes) {
     return _.isEqual(indexes[usernameIndexName], usernameIndex);
 }
 
-function connect(config) {
+function connect(dbConfig) {
     var connectionString;
 
     if (db) {
         return Promise.resolve(db);
     }
 
-    checkDBConfiguration(config.db);
+    checkDBConfiguration(dbConfig);
 
-    connectionString = formatConnectionString(config.db);
+    connectionString = formatConnectionString(dbConfig);
 
     return Promise.resolve(monk(connectionString))
         .then(function (database) {

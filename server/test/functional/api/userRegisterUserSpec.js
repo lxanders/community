@@ -10,16 +10,14 @@ describe('POST /users/ - register user', function () {
 
     var db,
         usersCollection,
-        environment = process.env.NODE_ENV,
-        getConfig = require('../../../config/config').getConfig,
-        configPath = '../../../config',
-        config = getConfig(environment, configPath, require),
+        config = require('config'),
+        dbConfig = config.get('db'),
         request;
 
     before(function () {
         request = supertestAsPromised(server);
 
-        return mongo.connect(config)
+        return mongo.connect(dbConfig)
             .then(function (database) {
                 db = database;
                 usersCollection = db.get('users');

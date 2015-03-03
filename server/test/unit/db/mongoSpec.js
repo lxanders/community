@@ -18,17 +18,15 @@ describe('mongo', function () {
         describe('valid configuration', function () {
 
             var config = {
-                    db: {
-                        host: 'anyhost',
-                        name: 'anyname'
-                    }
+                    host: 'anyhost',
+                    name: 'anyname'
                 },
                 monkStub,
                 mongoWithMonkStub;
 
             it('should call the connection method with the right connection string', function () {
                 monkStub = function (connectionString) {
-                    expect(connectionString).to.equal(config.db.host + '/' + config.db.name);
+                    expect(connectionString).to.equal(config.host + '/' + config.name);
                 };
 
                 mongoWithMonkStub = proxyquire('../../../db/mongo', { monk: monkStub });
@@ -57,81 +55,67 @@ describe('mongo', function () {
 
             var testCases = [
                 {
-                    config: {
-                        db: {
-                            host: 'any  host',
-                            name: 'anyname' }
+                    dbConfig: {
+                        host: 'any  host',
+                        name: 'anyname'
                     },
                     errorMessageStaticPart: 'Invalid Database configuration: No whitespaces allowed: '},
                 {
-                    config: {
-                        db: {
-                            host: 'anyhost',
-                            name: 'any  name' }
+                    dbConfig: {
+                        host: 'anyhost',
+                        name: 'any  name'
                     },
                     errorMessageStaticPart: 'Invalid Database configuration: No whitespaces allowed: '
                 },
                 {
-                    config: {
-                        db: {
-                            host: 42,
-                            name: 'anyname'
-                        }
+                    dbConfig: {
+                        host: 42,
+                        name: 'anyname'
                     },
                     errorMessageStaticPart: 'Invalid Database configuration: Host and name have to be strings: '
                 },
                 {
-                    config: {
-                        db: {
-                            host: 'anyname',
-                            name: {}
-                        }
+                    dbConfig: {
+                        host: 'anyname',
+                        name: {}
                     },
                     errorMessageStaticPart: 'Invalid Database configuration: Host and name have to be strings: '
                 },
                 {
-                    config: {
-                        db: {
-                            name: 'anyname'
-                        }
+                    dbConfig: {
+                        name: 'anyname'
                     },
                     errorMessageStaticPart: 'Invalid Database configuration: Missing or empty arguments: '
                 },
                 {
-                    config: {
-                        db: {
-                            host: 'anyhost'
-                        }
+                    dbConfig: {
+                        host: 'anyhost'
                     },
                     errorMessageStaticPart: 'Invalid Database configuration: Missing or empty arguments: '
                 },
                 {
-                    config: {
-                        db: {
-                            host: '',
-                            name: 'anyname'
-                        }
+                    dbConfig: {
+                        host: '',
+                        name: 'anyname'
                     },
                     errorMessageStaticPart: 'Invalid Database configuration: Missing or empty arguments: '
                 },
                 {
-                    config: {
-                        db: {
-                            host: 'anyhost',
-                            name: ''
-                        }
+                    dbConfig: {
+                        host: 'anyhost',
+                        name: ''
                     },
                     errorMessageStaticPart: 'Invalid Database configuration: Missing or empty arguments: '
                 }
             ];
 
             testCases.forEach(function (testCase) {
-                var hostAndName = 'host=' + testCase.config.db.host + ', name=' + testCase.config.db.name;
+                var hostAndName = 'host=' + testCase.dbConfig.host + ', name=' + testCase.dbConfig.name;
 
                 it('should throw an error for ' + hostAndName, function () {
                     var expectedErrorMessage,
-                        dbConfigurationString = JSON.stringify(testCase.config.db),
-                        connect = mongo.connect.bind(null, testCase.config);
+                        dbConfigurationString = JSON.stringify(testCase.dbConfig),
+                        connect = mongo.connect.bind(null, testCase.dbConfig);
 
                     expectedErrorMessage = testCase.errorMessageStaticPart + dbConfigurationString;
 
@@ -206,11 +190,9 @@ describe('mongo', function () {
 
     describe('checkIndexes', function () {
 
-        var config = {
-                db: {
+        var dbConfig = {
                     host: 'anyhost',
                     name: 'anyname'
-                }
             },
             monkStub,
             mongoWithMonkStub;
@@ -235,7 +217,7 @@ describe('mongo', function () {
 
             mongoWithMonkStub = proxyquire('../../../db/mongo', { monk: monkStub });
 
-            return mongoWithMonkStub.connect(config)
+            return mongoWithMonkStub.connect(dbConfig)
                 .then(mongoWithMonkStub.checkIndexes)
                 .then(function () {
                     expect(getStub).to.have.been.calledOnce;
@@ -259,7 +241,7 @@ describe('mongo', function () {
 
             mongoWithMonkStub = proxyquire('../../../db/mongo', { monk: monkStub });
 
-            return mongoWithMonkStub.connect(config)
+            return mongoWithMonkStub.connect(dbConfig)
                 .then(function () {
                     return expect(mongoWithMonkStub.checkIndexes()).to.be.rejectedWith(expectedErrorMessage);
                 });

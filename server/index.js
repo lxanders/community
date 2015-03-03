@@ -1,12 +1,12 @@
 'use strict';
 
 var app = require('./server'),
-    environment = process.env.NODE_ENV,
-    getConfig = require('./config/config').getConfig,
-    configPath = './config',
     mongo = require('./db/mongo'),
-    config,
-    logger = require('./logger');
+    config = require('config'),
+    logger = require('./logger'),
+    environment = process.env.NODE_ENV,
+    dbConfig,
+    port;
 
 if (!environment) {
     throw new Error('Node environment not set (NODE_ENV).');
@@ -14,16 +14,17 @@ if (!environment) {
     logger.info('Running with environment:', environment);
 }
 
-config = getConfig(environment, configPath, require);
+port = config.get('server').port;
+dbConfig = config.get('db');
 
-if (!config.server || !config.server.port) {
+if (!port) {
     throw new Error('Server configuration missing');
 }
 
-mongo.connect(config)
+mongo.connect(dbConfig)
     .then(function () {
-        app.listen(config.server.port);
-        logger.info('Server started on port ' + config.server.port);
+        app.listen(port);
+        logger.info('Server started on port ' + port);
     })
     .catch(function (error) {
         if (error) {
