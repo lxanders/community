@@ -3,3 +3,4 @@ client/build/**
 community.iml
 coverage/**
 node_modules/**
+npm-debug.log
