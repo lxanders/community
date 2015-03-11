@@ -37,16 +37,8 @@
         "supertest-as-promised": "1.0.0"
     },
     "scripts": {
-        "build": "npm run prepare-directories && npm run copy-html && npm run compile-css",
-        "clean": "npm run clean-coverage && npm run clean-node && npm run clean-client",
-        "clean-client": "rm -rf client/build",
-        "clean-coverage": "rm -rf coverage",
-        "clean-node": "rm -rf node_modules",
-        "copy-html": "cp -r client/templates/* client/build/",
-        "compile-css": "lessc client/styles/styles.less > client/build/css/styles.css",
         "coverage": "npm run test-unit --coverage && istanbul report html",
-        "eslint": "eslint server",
-        "prepare-directories": "npm run clean-client && mkdir client/build && mkdir client/build/css",
+        "eslint": "eslint .",
         "start": "NODE_ENV=development node-dev server",
         "test": "npm run eslint && npm run test-unit && npm run test-functional",
         "test-functional": "NODE_ENV=test mocha server/test/functional --recursive",
