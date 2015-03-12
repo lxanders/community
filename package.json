@@ -37,12 +37,12 @@
         "supertest-as-promised": "1.0.0"
     },
     "scripts": {
-        "coverage": "npm run test-unit --coverage && istanbul report html",
+        "coverage": "npm run test:unit --coverage && istanbul report html",
         "eslint": "eslint .",
         "start": "NODE_ENV=development node-dev server",
-        "test": "npm run eslint && npm run test-unit && npm run test-functional",
-        "test-functional": "NODE_ENV=test mocha server/test/functional --recursive",
-        "test-unit": "NODE_ENV=test istanbul test _mocha -- -R spec --recursive server/test/unit/"
+        "test": "npm run eslint && npm run test:unit && npm run test:functional",
+        "test:functional": "NODE_ENV=test mocha test/functional --recursive",
+        "test:unit": "NODE_ENV=test istanbul test _mocha -- -R spec --recursive test/unit"
     },
     "engines": {
         "node": "0.10.32"

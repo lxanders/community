@@ -4,7 +4,7 @@ var chai = require('chai'),
     expect = chai.expect,
     sinon = require('sinon'),
     sinonChai = require('sinon-chai'),
-    errorHandler = require('../../../middleware/errorHandler');
+    errorHandler = require('../../../server/middleware/errorHandler');
 
 chai.use(sinonChai);
 
