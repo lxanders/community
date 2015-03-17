@@ -43,12 +43,14 @@
         "webpack": "1.7.3"
     },
     "scripts": {
+        "build": "webpack",
         "coverage": "npm run test:unit --coverage && istanbul report html",
+        "dev": "NODE_ENV=development node-dev . & webpack --watch",
         "eslint": "eslint .",
-        "start": "NODE_ENV=development node-dev server",
+        "start": "NODE_ENV=development node server",
         "test": "npm run eslint && npm run test:unit && npm run test:functional",
         "test:functional": "NODE_ENV=test mocha test/functional --recursive",
-        "test:unit": "NODE_ENV=test istanbul test _mocha -- -R spec --recursive test/unit"
+        "test:unit": "NODE_ENV=test mocha -R spec --recursive test/unit"
     },
     "engines": {
         "node": "0.10.32"
