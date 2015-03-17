@@ -8,9 +8,8 @@ var path = require('path'),
     server = express(),
     morgan = require('morgan'),
     logger = require('./logger'),
-    createStartScript = require('./lib/createStartScript'),
+    renderOnServer = require('./lib/renderOnServer'),
     errorHandler = require('./middleware/errorHandler'),
-    Layout = require('../shared/components/Layout.jsx'),
     IsomorphicApp = require('../shared/IsomorphicApp'),
     isomorphicApp;
 
@@ -27,22 +26,13 @@ function applicationRouteHandler(req, res, next) {
     var context = isomorphicApp.createContext();
 
     context.executeAction(navigateAction, { url: req.url }, function (error) {
-        var component,
-            layoutComponent,
-            html,
-            startScript;
+        var html;
 
         if (error) {
             return next(error);
         }
 
-        startScript = createStartScript(isomorphicApp);
-        component = isomorphicApp.getComponent();
-        layoutComponent = React.createFactory(Layout);
-        html = React.renderToStaticMarkup(layoutComponent({
-            content: React.renderToString(component()),
-            startScript: startScript
-        }));
+        html = renderOnServer(isomorphicApp);
 
         res.write('<!DOCTYPE html>');
         res.write(html);
