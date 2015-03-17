@@ -16,7 +16,7 @@ var path = require('path'),
 
 isomorphicApp = IsomorphicApp.createIsomorphicApp();
 
-server.use(morgan('combined', { stream: logger.infoStream }));
+server.use(morgan('dev'));
 server.use('/public', express.static(path.join(__dirname, '../build/')));
 server.use(bodyParser.json());
 server.use(errorHandler);
