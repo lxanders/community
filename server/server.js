@@ -2,13 +2,13 @@
 
 var path = require('path'),
     React = require('react'),
-    serializeJavaScript = require('serialize-javascript'),
     navigateAction = require('flux-router-component').navigateAction,
     bodyParser = require('body-parser'),
     express = require('express'),
     server = express(),
     morgan = require('morgan'),
     logger = require('./logger'),
+    createStartScript = require('./lib/createStartScript'),
     errorHandler = require('./middleware/errorHandler'),
     Layout = require('../shared/components/Layout.jsx'),
     IsomorphicApp = require('../shared/IsomorphicApp'),
@@ -30,17 +30,13 @@ function applicationRouteHandler(req, res, next) {
         var component,
             layoutComponent,
             html,
-            dehydratedState,
-            serializedState,
             startScript;
 
         if (error) {
             return next(error);
         }
 
-        dehydratedState = isomorphicApp.dehydrate(context);
-        serializedState = serializeJavaScript(dehydratedState);
-        startScript = 'window.app.run(' + serializedState + ');';
+        startScript = createStartScript(isomorphicApp);
         component = isomorphicApp.getComponent();
         layoutComponent = React.createFactory(Layout);
         html = React.renderToStaticMarkup(layoutComponent({
