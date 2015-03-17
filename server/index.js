@@ -6,7 +6,7 @@ var server,
     environment = process.env.NODE_ENV,
     port;
 
-require('node-jsx').install();
+require('node-jsx').install({ extension: '.jsx' });
 
 if (!environment) {
     throw new Error('Node environment not set (NODE_ENV).');
