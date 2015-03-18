@@ -7,7 +7,7 @@ var path = require('path'),
     server = express(),
     morgan = require('morgan'),
     logger = require('./logger'),
-    renderOnServer = require('./lib/renderOnServer'),
+    renderToHtml = require('./lib/renderToHtml'),
     errorHandler = require('./middleware/errorHandler'),
     IsomorphicApp = require('../shared/IsomorphicApp'),
     isomorphicApp;
@@ -31,7 +31,7 @@ function applicationRouteHandler(req, res, next) {
             return next(error);
         }
 
-        html = renderOnServer(isomorphicApp);
+        html = renderToHtml(isomorphicApp);
 
         res.write('<!DOCTYPE html>');
         res.write(html);

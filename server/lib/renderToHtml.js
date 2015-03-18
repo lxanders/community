@@ -4,7 +4,7 @@ var createStartScript = require('./createStartScript'),
     Layout = require('../../shared/components/Layout.jsx'),
     React = require('react');
 
-module.exports = function renderOnServer(isomorphicApp) {
+module.exports = function renderToHtml(isomorphicApp) {
     var component = isomorphicApp.getComponent(),
         layoutComponent = React.createFactory(Layout),
         startScript = createStartScript(isomorphicApp),
