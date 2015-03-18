@@ -4,7 +4,7 @@ var serializeState = require('./serializeState'),
     Layout = require('../../shared/components/Layout.jsx'),
     React = require('react');
 
-module.exports = function renderToHtml(isomorphicApp) {
+function renderToHtml(isomorphicApp) {
     var component = isomorphicApp.getComponent(),
         layoutComponent = React.createFactory(Layout);
 
@@ -12,4 +12,17 @@ module.exports = function renderToHtml(isomorphicApp) {
         content: React.renderToString(component()),
         serializedState: serializeState(isomorphicApp)
     }));
+}
+
+function renderOnServer(isomorphicApp, res) {
+    var html = renderToHtml(isomorphicApp);
+
+    res.write('<!DOCTYPE html>');
+    res.write(html);
+    res.end();
+}
+
+module.exports = {
+    renderToHtml: renderToHtml,
+    renderOnServer: renderOnServer
 };

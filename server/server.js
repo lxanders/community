@@ -6,18 +6,10 @@ var path = require('path'),
     express = require('express'),
     server = express(),
     morgan = require('morgan'),
-    renderToHtml = require('./lib/renderToHtml'),
+    renderOnServer = require('./render').renderOnServer,
     errorHandler = require('./middleware/errorHandler'),
     IsomorphicApp = require('../shared/IsomorphicApp'),
     isomorphicApp;
-
-function renderOnServer(anyIsomorphicApp, res) {
-    var html = renderToHtml(anyIsomorphicApp);
-
-    res.write('<!DOCTYPE html>');
-    res.write(html);
-    res.end();
-}
 
 function applicationRouteHandler(req, res, next) {
     var context = isomorphicApp.createContext();
