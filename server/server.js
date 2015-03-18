@@ -12,8 +12,8 @@ var path = require('path'),
     IsomorphicApp = require('../shared/IsomorphicApp'),
     isomorphicApp;
 
-function renderOnServer(isomorphicApp, res) {
-    var html = renderToHtml(isomorphicApp);
+function renderOnServer(anyIsomorphicApp, res) {
+    var html = renderToHtml(anyIsomorphicApp);
 
     res.write('<!DOCTYPE html>');
     res.write(html);
