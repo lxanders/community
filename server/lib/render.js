@@ -14,15 +14,13 @@ function renderToHtml(isomorphicApp) {
     }));
 }
 
-function renderOnServer(isomorphicApp, res) {
+function renderToHtmlWithDoctype(isomorphicApp) {
     var html = renderToHtml(isomorphicApp);
 
-    res.write('<!DOCTYPE html>');
-    res.write(html);
-    res.end();
+    return '<!DOCTYPE html>' + html;
 }
 
 module.exports = {
     renderToHtml: renderToHtml,
-    renderOnServer: renderOnServer
+    renderToHtmlWithDoctype: renderToHtmlWithDoctype
 };

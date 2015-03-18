@@ -6,20 +6,24 @@ var path = require('path'),
     express = require('express'),
     server = express(),
     morgan = require('morgan'),
-    renderOnServer = require('./render').renderOnServer,
+    renderToHtmlWithDoctype = require('./lib/render').renderToHtmlWithDoctype,
     errorHandler = require('./middleware/errorHandler'),
     IsomorphicApp = require('../shared/IsomorphicApp'),
     isomorphicApp;
 
 function applicationRouteHandler(req, res, next) {
-    var context = isomorphicApp.createContext();
+    var context = isomorphicApp.createContext(),
+        html;
 
     context.executeAction(navigateAction, { url: req.url }, function (error) {
         if (error) {
             return next(error);
         }
 
-        renderOnServer(isomorphicApp, res);
+        html = renderToHtmlWithDoctype(isomorphicApp, res);
+
+        res.write(html);
+        res.end();
     });
 }
 
