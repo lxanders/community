@@ -20,15 +20,6 @@ function renderOnServer(isomorphicApp, res) {
     res.end();
 }
 
-isomorphicApp = IsomorphicApp.createIsomorphicApp();
-
-server.use(morgan('dev'));
-server.use('/public', express.static(path.join(__dirname, '../build/')));
-server.use(bodyParser.json());
-server.use(errorHandler);
-
-server.get('*', applicationRouteHandler);
-
 function applicationRouteHandler(req, res, next) {
     var context = isomorphicApp.createContext();
 
@@ -40,5 +31,14 @@ function applicationRouteHandler(req, res, next) {
         renderOnServer(isomorphicApp, res);
     });
 }
+
+isomorphicApp = IsomorphicApp.createIsomorphicApp();
+
+server.use(morgan('dev'));
+server.use('/public', express.static(path.join(__dirname, '../build/')));
+server.use(bodyParser.json());
+server.use(errorHandler);
+
+server.get('*', applicationRouteHandler);
 
 module.exports = server;
