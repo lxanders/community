@@ -1,19 +1,15 @@
 'use strict';
 
-var createStartScript = require('./createStartScript'),
+var serializeState = require('./serializeState'),
     Layout = require('../../shared/components/Layout.jsx'),
     React = require('react');
 
 module.exports = function renderToHtml(isomorphicApp) {
     var component = isomorphicApp.getComponent(),
-        layoutComponent = React.createFactory(Layout),
-        startScript = createStartScript(isomorphicApp),
-        html;
+        layoutComponent = React.createFactory(Layout);
 
-    html = React.renderToStaticMarkup(layoutComponent({
+    return React.renderToStaticMarkup(layoutComponent({
         content: React.renderToString(component()),
-        startScript: startScript
+        serializedState: serializeState(isomorphicApp)
     }));
-
-    return html;
 };

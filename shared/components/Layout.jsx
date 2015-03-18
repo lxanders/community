@@ -4,7 +4,7 @@ var React = require('react'),
     Layout;
 
 Layout = React.createClass({
-    render: function() {
+    render: function () {
         this.props.markup = 'Yeah!';
 
         return (
@@ -17,7 +17,7 @@ Layout = React.createClass({
                     <div id="communityApp" dangerouslySetInnerHTML={{ __html: this.props.content }}></div>
                 </body>
                 <script src="public/js/bundle.js"></script>
-                <script dangerouslySetInnerHTML={{ __html: this.props.startScript }}></script>
+                <script dangerouslySetInnerHTML={{ __html: "window.app.run(" + this.props.serializedState + ");"  }} />
             </html>
         );
     }
