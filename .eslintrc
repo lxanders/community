@@ -1,6 +1,7 @@
 {
     "env": {
-        "node": true
+        "node": true,
+        "browser": true
     },
     "rules": {
         "no-cond-assign": 2,
