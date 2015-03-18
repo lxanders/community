@@ -12,6 +12,14 @@ var path = require('path'),
     IsomorphicApp = require('../shared/IsomorphicApp'),
     isomorphicApp;
 
+function renderOnServer(isomorphicApp, res) {
+    var html = renderToHtml(isomorphicApp);
+
+    res.write('<!DOCTYPE html>');
+    res.write(html);
+    res.end();
+}
+
 isomorphicApp = IsomorphicApp.createIsomorphicApp();
 
 server.use(morgan('dev'));
@@ -25,17 +33,11 @@ function applicationRouteHandler(req, res, next) {
     var context = isomorphicApp.createContext();
 
     context.executeAction(navigateAction, { url: req.url }, function (error) {
-        var html;
-
         if (error) {
             return next(error);
         }
 
-        html = renderToHtml(isomorphicApp);
-
-        res.write('<!DOCTYPE html>');
-        res.write(html);
-        res.end();
+        renderOnServer(isomorphicApp, res);
     });
 }
 
