@@ -1,7 +1,6 @@
 'use strict';
 
 var path = require('path'),
-    React = require('react'),
     navigateAction = require('flux-router-component').navigateAction,
     bodyParser = require('body-parser'),
     express = require('express'),
