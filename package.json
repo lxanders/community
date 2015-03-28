@@ -19,6 +19,7 @@
         "morgan": "1.5.2",
         "node-jsx": "0.12.4",
         "react": "0.13.1",
+        "react-bootstrap": "0.19.1",
         "serialize-javascript": "1.0.0",
         "winston": "0.9.0"
     },
