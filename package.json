@@ -46,15 +46,15 @@
         "copy:css": "cp -rf ./node_modules/bootstrap/dist/css/bootstrap.css ./build/css/",
         "copy:fonts": "cp -rf ./node_modules/bootstrap/dist/fonts/* ./build/fonts/",
         "copy:assets": "npm run create:directories && npm run copy:css && npm run copy:fonts",
-        "coverage": "npm run test:unit --coverage && istanbul report html",
         "create:directories": "mkdir -p ./build && mkdir -p ./build/css && mkdir -p ./build/fonts",
         "dev": "NODE_ENV=development node-dev . & webpack --watch",
         "eslint": "eslint .",
         "postinstall": "npm run build",
         "start": "NODE_ENV=development node server",
-        "test": "npm run eslint && npm run test:unit && npm run test:functional",
+        "pretest": "npm run eslint",
+        "test": "npm run test:unit --coverage && npm run test:functional",
         "test:functional": "NODE_ENV=test mocha test/functional --recursive",
-        "test:unit": "NODE_ENV=test mocha -R spec --recursive test/unit"
+        "test:unit": "NODE_ENV=test istanbul test _mocha test/unit -- --opts test/unit/mocha.opts"
     },
     "engines": {
         "node": "0.10.32"
