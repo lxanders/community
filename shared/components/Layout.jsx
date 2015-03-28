@@ -12,6 +12,7 @@ Layout = React.createClass({
                 <head>
                     <meta charSet="utf-8" />
                     <title>Community - come together</title>
+                    <link href="public/css/bootstrap.css" rel="stylesheet" />
                 </head>
                 <body>
                     <div id="communityApp" dangerouslySetInnerHTML={{ __html: this.props.content }}></div>
