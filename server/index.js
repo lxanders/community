@@ -1,10 +1,12 @@
 'use strict';
 
-var app = require('./server'),
+var server,
     config = require('config'),
     logger = require('./logger'),
     environment = process.env.NODE_ENV,
     port;
+
+require('node-jsx').install({ extension: '.jsx' });
 
 if (!environment) {
     throw new Error('Node environment not set (NODE_ENV).');
@@ -18,5 +20,8 @@ if (!port) {
     throw new Error('Server configuration missing');
 }
 
-app.listen(config.server.port);
+server = require('./server');
+
+server.listen(config.server.port);
+
 logger.info('Server started on port ' + config.server.port);

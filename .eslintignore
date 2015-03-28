@@ -1,4 +1,4 @@
 .idea/**
-client/build/**
+build/**
 coverage/**
 node_modules/**

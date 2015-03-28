@@ -1,21 +1,40 @@
 'use strict';
 
 var path = require('path'),
+    navigateAction = require('flux-router-component').navigateAction,
     bodyParser = require('body-parser'),
     express = require('express'),
-    app = express(),
-    router = new express.Router(),
+    server = express(),
     morgan = require('morgan'),
-    logger = require('./logger'),
-    errorHandler = require('./middleware/errorHandler');
+    renderToHtmlWithDoctype = require('./lib/render').renderToHtmlWithDoctype,
+    errorHandler = require('./middleware/errorHandler'),
+    IsomorphicApp = require('../shared/IsomorphicApp'),
+    isomorphicApp;
 
-app.use(morgan('combined', { stream: logger.infoStream }));
-app.use(express.static(path.join(__dirname, '../client/build')));
-app.use(bodyParser.json());
-app.use('/', router);
+function applicationRouteHandler(req, res, next) {
+    var context = isomorphicApp.createContext(),
+        html;
 
-require('./routes')(router);
+    context.executeAction(navigateAction, { url: req.url }, function (error) {
+        if (error) {
+            return next(error);
+        }
 
-app.use(errorHandler);
+        html = renderToHtmlWithDoctype(isomorphicApp, res);
 
-module.exports = app;
+        res.write(html);
+        res.end();
+    });
+}
+
+isomorphicApp = IsomorphicApp.createIsomorphicApp();
+
+server.use(morgan('dev'));
+server.use('/public', express.static(path.join(__dirname, '../build/')));
+server.use('/public/css', express.static(path.join(__dirname, '../build/css')));
+server.use(bodyParser.json());
+server.use(errorHandler);
+
+server.get('*', applicationRouteHandler);
+
+module.exports = server;
