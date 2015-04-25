@@ -1,12 +1,8 @@
 'use strict';
 
-var chai = require('chai'),
-    expect = chai.expect,
+var expect = require('chai').expect,
     sinon = require('sinon'),
-    sinonChai = require('sinon-chai'),
     serializeState = require('../../../server/lib/serializeState');
-
-chai.use(sinonChai);
 
 describe('serializeState', function () {
     var isomorphicApp,

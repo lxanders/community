@@ -1,12 +1,8 @@
 'use strict';
 
-var chai = require('chai'),
-    expect = chai.expect,
+var expect = require('chai').expect,
     sinon = require('sinon'),
-    sinonChai = require('sinon-chai'),
     errorHandler = require('../../../server/middleware/errorHandler');
-
-chai.use(sinonChai);
 
 describe('errorHandler', function () {
     var req,
