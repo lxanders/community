@@ -43,11 +43,15 @@ describe('serializeState', function () {
     });
 
     it('should return the serialized state for a complex dehydrated state', function () {
-        var dehydratedState = {
-                any: function any(arg) { return arg * 2; },
-                nested: { foo: 'bar' }
-            },
+        var dehydratedState,
             expectedSerializedState = '{"any":function any(arg) { return arg * 2; },"nested":{"foo":"bar"}}';
+
+        /* eslint-disable */
+        dehydratedState = {
+            any: function any (arg) { return arg * 2; },
+            nested: { foo: 'bar' }
+        };
+        /* eslint-disable */
 
         isomorphicApp.dehydrate.returns(dehydratedState);
 

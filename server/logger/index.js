@@ -13,16 +13,17 @@ var Winston = require('winston'),
         ]
     });
 
-function removeEndingNewLineCharacter(message) {
-    var lastCharacter;
+function stripNewLineCharactersAtEnd(messageForStripping) {
+    var lastCharacter,
+        message = messageForStripping;
 
     if (message.length > 0) {
         lastCharacter = message[message.length - 1];
 
-        while(lastCharacter === '\n') {
+        while (lastCharacter === '\n') {
             message = message.slice(0, -1);
 
-            if(message.length > 0) {
+            if (message.length > 0) {
                 lastCharacter = message[message.length - 1];
             } else {
                 break;
@@ -36,6 +37,6 @@ function removeEndingNewLineCharacter(message) {
 module.exports = logger;
 module.exports.infoStream = {
     write: function (message) {
-        logger.info(removeEndingNewLineCharacter(message));
+        logger.info(stripNewLineCharactersAtEnd(message));
     }
 };
