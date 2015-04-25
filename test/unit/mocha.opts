@@ -1,2 +1,4 @@
 --reporter spec
 --recursive
+--require ./test/setupEnvironment.js
+--compilers jsx:./test/jsxCompiler.js
