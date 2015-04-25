@@ -17,8 +17,8 @@ Layout = React.createClass({
                 <body>
                     <div id="communityApp" dangerouslySetInnerHTML={{ __html: this.props.content }}></div>
                 </body>
-                <script src="public/js/bundle.js"></script>
-                <script dangerouslySetInnerHTML={{ __html: "window.app.run(" + this.props.serializedState + ");"  }} />
+                <script src="public/js/bundle.js" />
+                <script dangerouslySetInnerHTML={{ __html: 'window.app.run(' + this.props.serializedState + ');' }} />
             </html>
         );
     }

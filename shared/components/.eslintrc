@@ -2,6 +2,8 @@
     "plugins": [ "eslint-plugin-react" ],
 
     "rules": {
+        "no-extra-parens": 0,
+
         "react/no-multi-comp": 2,
         "react/prop-types": 0,
         "react/display-name": 0,
