@@ -9,7 +9,8 @@
     },
 
     "ecmaFeatures": {
-        "globalReturn": false
+        "globalReturn": false,
+        "jsx": true
     },
 
     "rules": {
