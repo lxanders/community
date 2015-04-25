@@ -2,10 +2,12 @@
     "env": {
         "mocha": true
     },
-    "plugins": ["eslint-plugin-mocha"],
+
+    "plugins": [ "eslint-plugin-mocha" ],
+
     "rules": {
         "no-unused-expressions": 0,
-        "mocha/no-exclusive-tests": 2,
-        "max-nested-callbacks": [2, 5]
+        "max-nested-callbacks": [2, 5],
+        "mocha/no-exclusive-tests": 2
     }
 }

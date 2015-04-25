@@ -9,9 +9,7 @@ var chai = require('chai'),
 chai.use(sinonChai);
 
 describe('logger', function () {
-
     describe('infoStream', function () {
-
         var infoStream = logger.infoStream,
             messageWithInnerLinebreaks = '\nany message containing \n \n line breaks';
 
@@ -48,7 +46,5 @@ describe('logger', function () {
             expect(logger.info).to.have.been.calledOnce;
             expect(logger.info).to.have.been.calledWith('');
         });
-
     });
-
 });

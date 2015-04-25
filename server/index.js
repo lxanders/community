@@ -3,10 +3,14 @@
 var server,
     config = require('config'),
     logger = require('./logger'),
-    environment = process.env.NODE_ENV,
+    environment,
     port;
 
 require('node-jsx').install({ extension: '.jsx' });
+
+/* eslint-disable no-process-env */
+environment = process.env.NODE_ENV;
+/* eslint-ensable no-process-env */
 
 if (!environment) {
     throw new Error('Node environment not set (NODE_ENV).');

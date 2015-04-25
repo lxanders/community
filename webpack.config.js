@@ -3,6 +3,7 @@
 var path = require('path'),
     buildPath = path.join(__dirname, 'build'),
     jsPath = path.join(buildPath, 'js'),
+    environment,
     config;
 
 config = {
@@ -21,7 +22,11 @@ config = {
     }
 };
 
-if (process.env.NODE_ENV === 'development') {
+/* eslint-disable no-process-env */
+environment = process.env.NODE_ENV;
+/* eslint-ensable no-process-env */
+
+if (environment === 'development') {
     config.devtool = '#source-map';
 }
 

@@ -9,7 +9,6 @@ var chai = require('chai'),
 chai.use(sinonChai);
 
 describe('errorHandler', function () {
-
     var req,
         res,
         next,
@@ -36,9 +35,7 @@ describe('errorHandler', function () {
         expect(res.json).to.have.been.calledOnce;
     });
 
-
     describe('status', function () {
-
         var testCases = [
             { expectedStatus: defaultErrorStatusCode },
             { name: '', expectedStatus: defaultErrorStatusCode },
@@ -55,11 +52,9 @@ describe('errorHandler', function () {
                 expect(res.status).to.have.been.calledWith(testCase.expectedStatus);
             });
         });
-
     });
 
     describe('error format', function () {
-
         var testCases = [
             {
                 error: {},
@@ -127,7 +122,5 @@ describe('errorHandler', function () {
                 expect(res.json).to.have.been.calledWithExactly(testCase.expectedResponse);
             });
         });
-
     });
-
 });
