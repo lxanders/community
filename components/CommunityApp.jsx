@@ -5,6 +5,7 @@ var React = require('react'),
     RouterMixin = require('flux-router-component').RouterMixin,
     FluxibleMixin = require('fluxible/addons/FluxibleMixin'),
     connectToStores = require('fluxible/addons/connectToStores'),
+    provideContext = require('fluxible/addons/provideContext'),
     ApplicationStore = require('../stores/ApplicationStore');
 
 var CommunityApp = React.createClass({
@@ -22,8 +23,12 @@ var CommunityApp = React.createClass({
     }
 });
 
-module.exports = connectToStores(CommunityApp, [ ApplicationStore ], function (stores) {
+CommunityApp = connectToStores(CommunityApp, [ ApplicationStore ], function (stores) {
     return {
         ApplicationStore: stores.ApplicationStore.getState()
     };
 });
+
+CommunityApp = provideContext(CommunityApp);
+
+module.exports = CommunityApp;
