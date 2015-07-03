@@ -9,8 +9,8 @@ var React = require('react'),
 
 var routes = (
     <Route name="app" path="/" handler={ CommunityApp }>
-        <Route name="about" handler={ About }/>
-        <DefaultRoute name="home" handler={ Home }/>
+        <Route name="about" handler={ About } />
+        <DefaultRoute name="home" handler={ Home } />
     </Route>
 );
 
