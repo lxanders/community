@@ -21,6 +21,7 @@ isomorphicApp = IsomorphicApp.createIsomorphicApp();
 server.use(morgan('dev'));
 server.use('/public', express.static(path.join(__dirname, '../build/')));
 server.use('/public/css', express.static(path.join(__dirname, '../build/css')));
+server.use('/public/img', express.static(path.join(__dirname, '../build/img')));
 server.use(bodyParser.json());
 server.use(errorHandler);
 

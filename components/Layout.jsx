@@ -13,6 +13,7 @@ Layout = React.createClass({
                 <head>
                     <meta charSet="utf-8" />
                     <title>{ this.props.context.getStore(ApplicationStore).getPageTitle() }</title>
+                    <link href="public/img/favicon.ico" rel="icon" />
                     <link href="public/css/bootstrap.css" rel="stylesheet" />
                 </head>
                 <body>
