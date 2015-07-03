@@ -5,6 +5,7 @@ var React = require('react'),
     FluxibleMixin = require('fluxible/addons/FluxibleMixin'),
     connectToStores = require('fluxible/addons/connectToStores'),
     provideContext = require('fluxible/addons/provideContext'),
+    RouteHandler = require('react-router').RouteHandler,
     ApplicationStore = require('../stores/ApplicationStore');
 
 var CommunityApp = React.createClass({
@@ -13,10 +14,7 @@ var CommunityApp = React.createClass({
     render: function () {
         return (
             <main>
-                <Jumbotron>
-                    <h1>Community</h1>
-                    <p>Community-Content-Placeholder</p>
-                </Jumbotron>
+                <RouteHandler />
             </main>
         );
     }
