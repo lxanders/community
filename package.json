@@ -2,6 +2,7 @@
     "name": "community",
     "description": "Social platform web application.",
     "version": "0.0.0",
+    "author": "Alexander Schmidt <alexanderschmidt1@gmail.com>",
     "private": true,
     "license": "MIT",
     "main": "server/index.js",
