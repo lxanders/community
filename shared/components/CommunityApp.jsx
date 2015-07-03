@@ -3,7 +3,7 @@
 var React = require('react'),
     Jumbotron = require('react-bootstrap/lib/Jumbotron'),
     RouterMixin = require('flux-router-component').RouterMixin,
-    FluxibleMixin = require('fluxible').FluxibleMixin;
+    FluxibleMixin = require('fluxible/addons/FluxibleMixin');
 
 var CommunityApp = React.createClass({
     mixins: [ RouterMixin, FluxibleMixin ],
