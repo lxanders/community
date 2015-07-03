@@ -2,22 +2,24 @@
 
 var React = require('react'),
     Jumbotron = require('react-bootstrap/lib/Jumbotron'),
-    RouterMixin = require('flux-router-component').RouterMixin,
     FluxibleMixin = require('fluxible/addons/FluxibleMixin'),
     connectToStores = require('fluxible/addons/connectToStores'),
     provideContext = require('fluxible/addons/provideContext'),
-    ApplicationStore = require('../stores/ApplicationStore');
+    RouteHandler = require('react-router').RouteHandler,
+    ApplicationStore = require('../stores/ApplicationStore'),
+    Link = require('react-router').Link;
 
 var CommunityApp = React.createClass({
-    mixins: [ RouterMixin, FluxibleMixin ],
+    mixins: [ FluxibleMixin ],
 
     render: function () {
         return (
             <main>
-                <Jumbotron>
-                    <h1>Community</h1>
-                    <p>Community-Content-Placeholder</p>
-                </Jumbotron>
+                <ul>
+                    <li><Link to="home">Home-Link</Link></li>
+                    <li><Link to="about">About-Link</Link></li>
+                </ul>
+                <RouteHandler />
             </main>
         );
     }
