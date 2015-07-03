@@ -1,19 +1,13 @@
 'use strict';
 
-var React = require('react'),
-    routesConfig = require('../config/routes'),
-    Fluxible = require('fluxible'),
-    CommunityApp = require('../components/CommunityApp.jsx'),
-    ApplicationStore = require('../stores/ApplicationStore'),
-    routrPlugin = require('fluxible-plugin-routr');
+var Fluxible = require('fluxible'),
+    ApplicationStore = require('../stores/ApplicationStore');
 
 function createIsomorphicApp() {
     var isomorphicApp = new Fluxible({
-        component: React.createFactory(CommunityApp),
+        component: require('../components/Routes.jsx'),
         stores: [ ApplicationStore ]
     });
-
-    isomorphicApp.plug(routrPlugin({ routes: routesConfig }));
 
     return isomorphicApp;
 }

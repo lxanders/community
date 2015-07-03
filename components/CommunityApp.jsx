@@ -2,14 +2,13 @@
 
 var React = require('react'),
     Jumbotron = require('react-bootstrap/lib/Jumbotron'),
-    RouterMixin = require('flux-router-component').RouterMixin,
     FluxibleMixin = require('fluxible/addons/FluxibleMixin'),
     connectToStores = require('fluxible/addons/connectToStores'),
     provideContext = require('fluxible/addons/provideContext'),
     ApplicationStore = require('../stores/ApplicationStore');
 
 var CommunityApp = React.createClass({
-    mixins: [ RouterMixin, FluxibleMixin ],
+    mixins: [ FluxibleMixin ],
 
     render: function () {
         return (
