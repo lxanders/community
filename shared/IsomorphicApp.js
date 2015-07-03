@@ -3,7 +3,7 @@
 var React = require('react'),
     routesConfig = require('../config/routes'),
     Fluxible = require('fluxible'),
-    CommunityApp = require('./components/CommunityApp.jsx'),
+    CommunityApp = require('./../components/CommunityApp.jsx'),
     routrPlugin = require('fluxible-plugin-routr');
 
 function createIsomorphicApp() {

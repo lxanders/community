@@ -11,7 +11,7 @@ var path = require('path'),
     isomorphicApp,
     React = require('react'),
     serialize = require('serialize-javascript'),
-    Layout = require('../shared/components/Layout.jsx'),
+    Layout = require('../components/Layout.jsx'),
     layoutComponent = React.createFactory(Layout);
 
 isomorphicApp = IsomorphicApp.createIsomorphicApp();
