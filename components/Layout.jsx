@@ -1,18 +1,19 @@
 'use strict';
 
 var React = require('react'),
+    DocumentTitle = require('react-document-title'),
     ApplicationStore = require('../stores/ApplicationStore'),
     Layout;
 
 Layout = React.createClass({
     render: function () {
-        this.props.markup = 'Yeah!';
+        var currentPageTitle = DocumentTitle.rewind();
 
         return (
             <html>
                 <head>
                     <meta charSet="utf-8" />
-                    <title>{ this.props.context.getStore(ApplicationStore).getPageTitle() }</title>
+                    <title>{ currentPageTitle }</title>
                     <link href="public/img/favicon.ico" rel="icon" />
                     <link href="public/css/bootstrap.css" rel="stylesheet" />
                 </head>

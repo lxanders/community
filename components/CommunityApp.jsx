@@ -3,6 +3,7 @@
 var React = require('react'),
     Jumbotron = require('react-bootstrap/lib/Jumbotron'),
     FluxibleMixin = require('fluxible/addons/FluxibleMixin'),
+    DocumentTitle = require('react-document-title'),
     connectToStores = require('fluxible/addons/connectToStores'),
     provideContext = require('fluxible/addons/provideContext'),
     RouteHandler = require('react-router').RouteHandler,
@@ -19,7 +20,10 @@ var CommunityApp = React.createClass({
                     <li><Link to="home">Home-Link</Link></li>
                     <li><Link to="about">About-Link</Link></li>
                 </ul>
-                <RouteHandler />
+
+                <DocumentTitle title='Community'>
+                    <RouteHandler />
+                </DocumentTitle>
             </main>
         );
     }

@@ -3,29 +3,36 @@
 var createStore = require('fluxible/addons').createStore,
     ApplicationStore;
 
+function isEqualRoute(currentRoute, route) {
+    if (currentRoute && route) {
+        return currentRoute.path === route.path;
+    }
+
+    return false;
+}
+
 ApplicationStore = createStore({
     storeName: 'ApplicationStore',
 
     handlers: {
-        UPDATE_PAGE_TITLE: 'updatePageTitle'
+        CHANGE_ROUTE: 'handleNavigate'
     },
 
     initialize: function () {
-        this.pageTitle = '';
+        this.currentRoute = null;
     },
 
-    updatePageTitle: function (title) {
-        this.pageTitle = title.pageTitle;
-        this.emitChange();
-    },
+    handleNavigate: function (route) {
+        if (!isEqualRoute(this.currentRoute, route) || !this.currentRoute) {
+            this.currentRoute = route;
 
-    getPageTitle: function () {
-        return this.pageTitle;
+            this.emitChange();
+        }
     },
 
     getState: function () {
         return {
-            pageTitle: this.pageTitle
+            route: this.currentRoute
         };
     },
 
@@ -34,7 +41,7 @@ ApplicationStore = createStore({
     },
 
     rehydrate: function (state) {
-        this.pageTitle = state.pageTitle;
+        this.currentRoute = state.route;
     }
 });
 
