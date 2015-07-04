@@ -3,19 +3,18 @@
 var React = require('react'),
     DocumentTitle = require('react-document-title'),
     Jumbotron = require('react-bootstrap/lib/Jumbotron'),
-    Link = require('react-router').Link,
+    NavItemLink = require('react-router-bootstrap').NavItemLink,
     bootstrap = require('react-bootstrap'),
     Navbar = bootstrap.Navbar,
-    Nav = bootstrap.Nav,
-    NavItem = bootstrap.NavItem;
+    Nav = bootstrap.Nav;
 
 var Home = React.createClass({
     render: function () {
         return (
             <Navbar brand='Community'>
             <Nav>
-                <NavItem><Link to="home">Home-Link</Link></NavItem>
-                <NavItem><Link to="about">About-Link</Link></NavItem>
+                <NavItemLink to="home">Home-Link</NavItemLink>
+                <NavItemLink to="about">About-Link</NavItemLink>
             </Nav>
             </Navbar>
         );
