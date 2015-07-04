@@ -8,23 +8,19 @@ var React = require('react'),
     provideContext = require('fluxible/addons/provideContext'),
     RouteHandler = require('react-router').RouteHandler,
     ApplicationStore = require('../stores/ApplicationStore'),
-    Link = require('react-router').Link;
+    Header = require('./Header.jsx');
 
 var CommunityApp = React.createClass({
     mixins: [ FluxibleMixin ],
 
     render: function () {
         return (
-            <main>
-                <ul>
-                    <li><Link to="home">Home-Link</Link></li>
-                    <li><Link to="about">About-Link</Link></li>
-                </ul>
-
-                <DocumentTitle title='Community'>
+            <DocumentTitle title='Community'>
+                <main>
+                    <Header />
                     <RouteHandler />
-                </DocumentTitle>
-            </main>
+                </main>
+            </DocumentTitle>
         );
     }
 });
