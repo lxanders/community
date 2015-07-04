@@ -18,10 +18,6 @@ ApplicationStore = createStore({
         CHANGE_ROUTE: 'handleNavigate'
     },
 
-    initialize: function () {
-        this.currentRoute = null;
-    },
-
     handleNavigate: function (route) {
         if (!isEqualRoute(this.currentRoute, route) || !this.currentRoute) {
             this.currentRoute = route;
