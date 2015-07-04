@@ -5,7 +5,7 @@ var createStore = require('fluxible/addons').createStore,
 
 function isEqualRoute(currentRoute, route) {
     if (currentRoute && route) {
-        return currentRoute.path === route.path
+        return currentRoute.path === route.path;
     }
 
     return false;
