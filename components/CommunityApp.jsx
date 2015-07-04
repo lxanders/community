@@ -8,7 +8,10 @@ var React = require('react'),
     provideContext = require('fluxible/addons/provideContext'),
     RouteHandler = require('react-router').RouteHandler,
     ApplicationStore = require('../stores/ApplicationStore'),
-    Header = require('./Header.jsx');
+    Header = require('./Header.jsx'),
+    bootstrap = require('react-bootstrap'),
+    Grid = bootstrap.Grid,
+    Row = bootstrap.Row;
 
 var CommunityApp = React.createClass({
     mixins: [ FluxibleMixin ],
@@ -16,10 +19,14 @@ var CommunityApp = React.createClass({
     render: function () {
         return (
             <DocumentTitle title='Community'>
-                <main>
-                    <Header />
-                    <RouteHandler />
-                </main>
+                <Grid componentClass='main'>
+                    <Row>
+                        <Header />
+                    </Row>
+                    <Row>
+                        <RouteHandler />
+                    </Row>
+                </Grid>
             </DocumentTitle>
         );
     }
